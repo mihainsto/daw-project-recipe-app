@@ -299,7 +299,7 @@ namespace proiectDaw.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("proiectDaw.Models.Recipe", b =>
+            modelBuilder.Entity("proiectDaw.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -309,6 +309,57 @@ namespace proiectDaw.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("proiectDaw.Models.Recipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Difficulty")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Kcal")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MealType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string[]>("Steps")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<int>("Time")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -362,6 +413,15 @@ namespace proiectDaw.Migrations
                     b.HasOne("proiectDaw.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("proiectDaw.Models.Ingredient", b =>
+                {
+                    b.HasOne("proiectDaw.Models.Recipe", "Recipe")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
