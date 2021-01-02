@@ -32,7 +32,9 @@ namespace proiectDaw
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            
+            services.AddTransient<DataSeeder>();
+            
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
@@ -48,10 +50,11 @@ namespace proiectDaw
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataSeeder seeder)
         {
             if (env.IsDevelopment())
             {
+                seeder.Seed();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }

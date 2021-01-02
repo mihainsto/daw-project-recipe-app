@@ -18,6 +18,16 @@ namespace proiectDaw.Data
         {
         }
         
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     
+        //     modelBuilder.Entity<Ingredient>()
+        //         .HasOne(p => p.Recipe)
+        //         .WithMany(b => b.Ingredients);
+        // }
+        
         public DbSet<Recipe> Recipes { get; set; }
+        
+        public DbSet<Ingredient> Ingredients { get; set; }
     }
 }
