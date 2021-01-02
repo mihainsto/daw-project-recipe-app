@@ -17,5 +17,7 @@ namespace proiectDaw.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        
+        public DbSet<Recipe> Recipes { get; set; }
     }
 }
