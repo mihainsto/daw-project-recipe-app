@@ -18,13 +18,14 @@ namespace proiectDaw.Data
         {
         }
         
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     
-        //     modelBuilder.Entity<Ingredient>()
-        //         .HasOne(p => p.Recipe)
-        //         .WithMany(b => b.Ingredients);
-        // }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Ingredient>()
+                .HasOne(p => p.Recipe)
+                .WithMany(b => b.Ingredients)
+                .HasForeignKey(p => p.RecipeId);
+        }
         
         public DbSet<Recipe> Recipes { get; set; }
         

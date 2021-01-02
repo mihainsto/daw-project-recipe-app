@@ -317,6 +317,10 @@ namespace proiectDaw.Migrations
                     b.Property<int>("RecipeId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
@@ -349,6 +353,10 @@ namespace proiectDaw.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string[]>("Steps")
+                        .IsRequired()
+                        .HasColumnType("text[]");
 
                     b.Property<int>("Time")
                         .HasColumnType("integer");

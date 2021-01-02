@@ -23,6 +23,8 @@ namespace proiectDaw.Models
 
         [Required] public string Difficulty { get; set; }
         
+        [Required] public string[] Steps { get; set; }
+        
         [Required] public List<Ingredient> Ingredients { get; set; }
     }
 }

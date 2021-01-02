@@ -10,6 +10,10 @@ namespace proiectDaw.Models
 
         [Required] public string Quantity { get; set; }
 
+        [Required] public string Type { get; set; }
+
+        [Required] public int RecipeId { get; set; }
+
         [Required] public Recipe Recipe { get; set; }
     }
 }
