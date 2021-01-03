@@ -93,7 +93,8 @@ namespace proiectDaw.Migrations
                     Kcal = table.Column<int>(nullable: false),
                     MealType = table.Column<string>(nullable: false),
                     Difficulty = table.Column<string>(nullable: false),
-                    Steps = table.Column<string[]>(nullable: false)
+                    Steps = table.Column<string[]>(nullable: false),
+                    CoverPhotoUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,7 +1,8 @@
-import {Component, Inject, OnInit} from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute } from "@angular/router";
 import { FormArray, FormControl, NgForm, Validators } from "@angular/forms";
+import { Recipe } from "../recipes/recipes.component";
 
 @Component({
   selector: "app-counter-component",
@@ -13,7 +14,7 @@ export class CreateOrEditRecipe implements OnInit {
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
   private id: string;
-  private action: 'CREATE' | 'UPDATE';
+  private action: "CREATE" | "UPDATE";
 
   name = new FormControl(null, [Validators.required]);
   kcal = new FormControl(null, [Validators.required]);
@@ -21,6 +22,7 @@ export class CreateOrEditRecipe implements OnInit {
   difficulty = new FormControl(null, [Validators.required]);
   time = new FormControl(null, [Validators.required]);
   description = new FormControl(null, [Validators.required]);
+  imageUrl = new FormControl(null);
   ingredientsQuantity = new FormArray([]);
   ingredientsName = new FormArray([]);
   ingredientsTypes = new FormArray([]);
@@ -42,6 +44,7 @@ export class CreateOrEditRecipe implements OnInit {
           this.mealType.setValue(result.mealType);
           this.difficulty.setValue(result.difficulty);
           this.description.setValue(result.description);
+          this.imageUrl.setValue(result.coverPhotoUrl);
           result.ingredients.forEach((ingredient) => {
             this.ingredientsName.push(
               new FormControl(ingredient.name, [Validators.required])
@@ -76,7 +79,8 @@ export class CreateOrEditRecipe implements OnInit {
           ingredientsName: this.ingredientsName.value,
           ingredientsQuantity: this.ingredientsQuantity.value,
           ingredientsTypes: this.ingredientsTypes.value,
-          steps: this.steps.value
+          steps: this.steps.value,
+          coverPhotoUrl: btoa(this.imageUrl.value.toString()).split("=").join("EQUAL")
         },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       )
@@ -103,7 +107,8 @@ export class CreateOrEditRecipe implements OnInit {
           ingredientsName: this.ingredientsName.value,
           ingredientsQuantity: this.ingredientsQuantity.value,
           ingredientsTypes: this.ingredientsTypes.value,
-          steps: this.steps.value
+          steps: this.steps.value,
+          coverPhotoUrl: btoa(this.imageUrl.value.toString()).split("=").join("EQUAL")
         },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       )
@@ -122,30 +127,29 @@ export class CreateOrEditRecipe implements OnInit {
   ) {
     this.httpClient = http;
     this.baseUrl = baseUrl;
-    this.action = 'CREATE'
-
+    this.action = "CREATE";
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.id = params["id"];
     });
-    if(this.id !== 'create'){
+    if (this.id !== "create") {
       this.fetchData(this.httpClient, this.baseUrl);
-      this.action = 'UPDATE'
+      this.action = "UPDATE";
     }
   }
 
   saveChangesButtonClicked() {
-    if(this.action === 'UPDATE')
-      this.updateData(this.httpClient, this.baseUrl)
+    if (this.action === "UPDATE")
+      this.updateData(this.httpClient, this.baseUrl);
 
-    if(this.action === 'CREATE')
-      this.createRecipe(this.httpClient, this.baseUrl)
+    if (this.action === "CREATE")
+      this.createRecipe(this.httpClient, this.baseUrl);
 
-    console.log({dbg: this.steps.value})
+    console.log({ dbg: this.steps.value });
 
-    console.log({dbg: this.ingredientsName.value})
+    console.log({ dbg: this.ingredientsName.value });
   }
 
   addNewIngredient() {
@@ -157,24 +161,4 @@ export class CreateOrEditRecipe implements OnInit {
   addNewStep() {
     this.steps.push(new FormControl("", [Validators.required]));
   }
-}
-
-export interface Recipe {
-  id: number;
-  name: string;
-  description: string;
-  time: number;
-  kcal: number;
-  mealType: string;
-  difficulty: string;
-  steps: string[];
-  ingredients: Ingredient[];
-}
-
-export interface Ingredient {
-  id: number;
-  name: string;
-  quantity: string;
-  type: string;
-  recipeId: number;
 }

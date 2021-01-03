@@ -20,6 +20,11 @@ namespace proiectDaw.Controllers
             _context = context;
         }
 
+        public static string Base64Decode(string base64EncodedData) {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+        
         [HttpPost("/recipe/recipes")]
         public List<Recipe> Recipes()
         {
@@ -105,7 +110,8 @@ namespace proiectDaw.Controllers
                 var ingredientsNames = json["ingredientsName"].ToObject<string[]>();
                 var ingredientsQuantity = json["ingredientsQuantity"].ToObject<string[]>();
                 var ingredientsTypes = json["ingredientsTypes"].ToObject<string[]>();
-
+                var imageUrl = json["coverPhotoUrl"];
+                
                 recipe.Name = name;
                 recipe.Description = description;
                 recipe.Difficulty = difficulty;
@@ -113,7 +119,11 @@ namespace proiectDaw.Controllers
                 recipe.Steps = steps;
                 recipe.Time = time;
                 recipe.MealType = mealType;
-
+                if (imageUrl != null)
+                {
+                    var convertedPhoto = imageUrl.ToString().Replace("EQUAL", "=");
+                    recipe.CoverPhotoUrl = Base64Decode(convertedPhoto);
+                }
                 for (int i = 0; i < recipe.Ingredients.Count; i++)
                 {
                     recipe.Ingredients[i].Name = ingredientsNames[i];
@@ -149,7 +159,7 @@ namespace proiectDaw.Controllers
             foreach (var key in keys)
             {
                 var json = JObject.Parse(key);
-
+                
                 var name = json["name"].ToString();
                 var description = json["description"].ToString();
                 var difficulty = json["difficulty"].ToString();
@@ -160,6 +170,8 @@ namespace proiectDaw.Controllers
                 var ingredientsNames = json["ingredientsName"].ToObject<string[]>();
                 var ingredientsQuantity = json["ingredientsQuantity"].ToObject<string[]>();
                 var ingredientsTypes = json["ingredientsTypes"].ToObject<string[]>();
+                var imageUrl = json["coverPhotoUrl"];
+                
                 var recipe = new Recipe();
                 recipe.Name = name;
                 recipe.Description = description;
@@ -169,7 +181,11 @@ namespace proiectDaw.Controllers
                 recipe.Time = time;
                 recipe.MealType = mealType;
                 recipe.Ingredients = new List<Ingredient>();
-                
+                if (imageUrl != null)
+                {
+                    var convertedPhoto = imageUrl.ToString().Replace("EQUAL", "=");
+                    recipe.CoverPhotoUrl = Base64Decode(convertedPhoto);
+                }
                 for (int i = 0; i < ingredientsNames.Length; i++)
                 {
                     var ing = new Ingredient

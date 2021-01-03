@@ -10,7 +10,7 @@ using proiectDaw.Data;
 namespace proiectDaw.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210102205353_Initial")]
+    [Migration("20210103173432_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -336,6 +336,9 @@ namespace proiectDaw.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CoverPhotoUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()

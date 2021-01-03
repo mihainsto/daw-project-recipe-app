@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace proiectDaw.Models
 {
@@ -22,9 +23,11 @@ namespace proiectDaw.Models
         [Required] public string MealType { get; set; }
 
         [Required] public string Difficulty { get; set; }
-        
+
         [Required] public string[] Steps { get; set; }
-        
+
         [Required] public List<Ingredient> Ingredients { get; set; }
+
+        [JsonProperty(PropertyName = "url")] public string CoverPhotoUrl { get; set; }
     }
 }

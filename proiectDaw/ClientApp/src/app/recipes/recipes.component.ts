@@ -37,6 +37,7 @@ export class RecipesComponent {
       .subscribe(
         (result) => {
           this.recipes = result;
+          console.log(this.recipes[0])
         },
         (error) => console.error(error)
       );
@@ -69,6 +70,7 @@ export interface Recipe {
   difficulty: string;
   steps: string[];
   ingredients: Ingredient[];
+  coverPhotoUrl?: string;
 }
 
 export interface Ingredient {

@@ -20,13 +20,13 @@ namespace proiectDaw.Data
 
         private Recipe createRecipe(string name, string description, int kcal, string difficulty, int time,
             string mealType, string[] steps, string[] ingredientsNames, string[] ingredientsQuantity,
-            string[] ingredientsTypes
+            string[] ingredientsTypes, string coverPhotoUrl
         )
         {
             var recipe = new Recipe
             {
                 Name = name, Description = description, Kcal = kcal, Difficulty = difficulty, Time = time,
-                MealType = mealType, Steps = steps
+                MealType = mealType, Steps = steps, CoverPhotoUrl = coverPhotoUrl
             };
             recipe.Ingredients = new List<Ingredient>();
 
@@ -34,7 +34,10 @@ namespace proiectDaw.Data
             for (int i = 0; i < ingredientsNames.Length; i++)
             {
                 var ingredient = new Ingredient
-                    {Name = ingredientsNames[i], Quantity = ingredientsQuantity[i], Recipe = recipe, Type = ingredientsTypes[i]};
+                {
+                    Name = ingredientsNames[i], Quantity = ingredientsQuantity[i], Recipe = recipe,
+                    Type = ingredientsTypes[i]
+                };
                 recipe.Ingredients.Add(ingredient);
             }
 
@@ -55,7 +58,7 @@ namespace proiectDaw.Data
             _context.Recipes.RemoveRange(_context.Recipes);
             _context.Ingredients.RemoveRange(_context.Ingredients);
             _context.SaveChanges();
-            
+
             var recipe1 = createRecipe("Simple Carbonara",
                 "Humble ingredients—eggs, noodles, cheese, and pork—combine to create glossy, glorious pasta carbonara. It's the no-food-in-the-house dinner of our dreams.",
                 400, "Easy", 40, "Pasta",
@@ -86,8 +89,10 @@ namespace proiectDaw.Data
                 new string[]
                 {
                     "spice", "meat", "cheese", "egg", "egg", "spice", "oil", "pasta"
-                });
+                },
+                "https://images.unsplash.com/photo-1528658948776-cf610b846f80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80");
             _context.Recipes.Add(recipe1);
+
             var recipe2 = createRecipe("Vegetarian Chili With Lots of Fritos",
                 "Quick, spicy, filling, and made mostly of pantry ingredients, this chili/tortilla soup/frito pie mash-up is calling your name. (Shhh. Listen closely.) Garnish it with the toppings of your choice: We like avocado, sour cream, and chopped white onion, but you can add shredded cheese, pickled or fresh jalapeños, and/or sliced scallions or radishes. You can use any tortilla chips you like—they add body and flavor to the soup itself and go on top for extra oomph. You could also fry or bake your own stale tortillas, cut into strips, but if we're being honest, salty, crunchy Fritos will probably taste better. ",
                 200, "Easy", 20, "Vegetarian",
@@ -115,9 +120,11 @@ namespace proiectDaw.Data
                 },
                 new string[]
                 {
-                    "vegetable", "vegetable", "vegetable", "vegetable", "sauce", "vegetable", "vegetable", "oil", "spice", "vegetable", "spice", "misc", "vegetable", "fruit", "sauce", "spice"
-                });
-            
+                    "vegetable", "vegetable", "vegetable", "vegetable", "sauce", "vegetable", "vegetable", "oil",
+                    "spice", "vegetable", "spice", "misc", "vegetable", "fruit", "sauce", "spice"
+                },
+                "https://images.unsplash.com/photo-1519996409144-56c88c9aa612?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80");
+
             _context.Recipes.Add(recipe2);
             var recipe3 = createRecipe("Tahini Billionaire Bars",
                 "For the seventh recipe in the Basically Guide to Better Baking, we took the millionaire bar—shortbread plus caramel plus chocolate (think of it like an oversized Twix)—and gave it an upgrade with sesame seeds and tahini. The shortbread is tender, the filling is gooey, and the chocolate ties it all together. Be sure to give the tahini a good stir with a butter knife or mini offset spatula before you whisk it into the butterscotch—it has a tendency to separate. Slice the finished bars into pieces using a serrated knife so that you can saw through the layers rather than smoosh them. If you're still having trouble, just stick them in the freezer until the butterscotch is firm enough to easily slice. More questions? Head to our forum where we're eager to help. ",
@@ -142,10 +149,18 @@ namespace proiectDaw.Data
                     "chilled unsalted butter", "large eggs", "light brown sugar", "heavy cream", "tahini",
                     "vanilla extract", "bittersweet chocolate"
                 },
-                new string[] {"125 g", "83 g", "1/3 cup", "2 3/4 cup", "1 cup", "3/4 cup", "1 cup", "1 tsp", "1 tsp","1 tsp", "1 tsp", "6 oz"},
-                new string[] {"oil", "cereal", "spice", "spice", "spice", "misc", "egg", "spice", "misc", "misc", "misc", "sweet"});
+                new string[]
+                {
+                    "125 g", "83 g", "1/3 cup", "2 3/4 cup", "1 cup", "3/4 cup", "1 cup", "1 tsp", "1 tsp", "1 tsp",
+                    "1 tsp", "6 oz"
+                },
+                new string[]
+                {
+                    "oil", "cereal", "spice", "spice", "spice", "misc", "egg", "spice", "misc", "misc", "misc", "sweet"
+                },
+                "https://assets.bonappetit.com/photos/5e7517ead90ce90009b4b86f/16:9/w_2560%2Cc_limit/BBaking_WEEK7_Billionaire_16x9.jpg");
             _context.Recipes.Add(recipe3);
-            
+
             var recipe4 = createRecipe("Classic Chicken Noodle Soup",
                 "There are tons of shortcuts for chicken noodle soup, but this time we're not cutting corners—this is the long game! This version is about as classic (and as comforting) as they come, using a whole chicken—bones, skin, and all—to lend flavor and body to the broth. The key is to treat the breasts and legs differently: The breasts need to be pulled early so they don't overcook and dry out, whereas the legs require a long simmer to become incredibly tender. We used ditalini here, but feel free to use any small quick-cooking pasta you have! We wouldn’t be mad about orzo or ABCs either.",
                 210, "Medium", 80, "Soup",
@@ -176,8 +191,13 @@ namespace proiectDaw.Data
                     "Freshly ground black pepper"
                 },
                 new string[] {"1 3-4 lb", "4 tsb", "2", "4", "4", "2", "1", "1/2", "6 os", "1 tsb"},
-                new string[] {"meat", "spice", "vegetable", "vegetable", "vegetable", "vegetable", "spice", "spice", "misc", "spice"});
-            
+                new string[]
+                {
+                    "meat", "spice", "vegetable", "vegetable", "vegetable", "vegetable", "spice", "spice", "misc",
+                    "spice"
+                },
+                "https://images.unsplash.com/photo-1607330289024-1535c6b4e1c1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80");
+
             _context.Recipes.Add(recipe4);
             _context.SaveChanges();
             //Seeding the db
