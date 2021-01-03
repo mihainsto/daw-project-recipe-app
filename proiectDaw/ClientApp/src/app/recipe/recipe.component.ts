@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { map } from "rxjs/operators";
 import { Recipe } from "../recipes/recipes.component";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: "app-counter-component",
@@ -15,7 +16,8 @@ export class RecipeComponent implements OnInit {
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
   private id: string;
-  state$: Observable<object>;
+
+  review = new FormControl(null);
 
   private fetchData(http: HttpClient, baseUrl: string) {
     http

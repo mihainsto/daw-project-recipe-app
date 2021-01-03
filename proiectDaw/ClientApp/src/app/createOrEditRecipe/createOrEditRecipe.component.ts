@@ -128,7 +128,6 @@ export class CreateOrEditRecipe implements OnInit {
       )
       .subscribe(
         (result) => {
-          console.log("Create recipe");
           this.error = false;
           this.success = true;
           this.router.navigate(["recipe", this.id]);
