@@ -13,6 +13,8 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import {RecipesComponent} from "./recipes/recipes.component";
+import {RecipeComponent} from "./recipe/recipe.component";
+import {CreateOrEditRecipe} from "./createOrEditRecipe/createOrEditRecipe.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import {RecipesComponent} from "./recipes/recipes.component";
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    RecipesComponent
+    RecipesComponent,
+    RecipeComponent,
+    CreateOrEditRecipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +36,8 @@ import {RecipesComponent} from "./recipes/recipes.component";
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'recipes', component: RecipesComponent },
+      { path: 'recipe/:id', component: RecipeComponent },
+      { path: 'createOrEditRecipe/:id', component: CreateOrEditRecipe },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
   ],

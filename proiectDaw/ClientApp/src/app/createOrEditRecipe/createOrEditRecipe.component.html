@@ -1,0 +1,63 @@
+<div>
+
+  <p class="fs-1">Edit the Recipe</p>
+  <hr class="dropdown-divider mb-lg-5">
+
+  <p class="fs-3">General Data</p>
+  <hr class="dropdown-divider">
+
+  <div class="input-group mb-3">
+    <span class="input-group-text">Title</span>
+    <input type="text" class="form-control" placeholder="Type something" [value]="recipe.name">
+  </div>
+
+  <div class="input-group mb-3">
+    <span class="input-group-text">Number of Kcal</span>
+    <input type="text" class="form-control" placeholder="Type something" [value]="recipe.kcal">
+    <span class="input-group-text">Kcal</span>
+    <input type="text" class="form-control" placeholder="Type something" [value]="recipe.name">
+    <span class="input-group-text">Difficulty</span>
+    <input type="text" class="form-control" placeholder="Type something" [value]="recipe.difficulty">
+    <span class="input-group-text">Duration in minutes</span>
+    <input type="text" class="form-control" placeholder="Type something" [value]="recipe.time">
+  </div>
+
+  <div class="input-group mb-5">
+    <span class="input-group-text">Description</span>
+    <textarea class="form-control" [value]="recipe.description" ></textarea>
+  </div>
+
+  <p class="fs-3">Ingredients</p>
+  <hr class="dropdown-divider">
+
+
+
+  <div>
+    <div  *ngFor="let ingredient of recipe.ingredients">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Ingredient Quantity</span>
+      <input type="text" class="form-control" placeholder="Type something" [value]="ingredient.quantity">
+
+      <span class="input-group-text">Ingredient Name</span>
+      <input type="text" class="form-control" placeholder="Type something" [value]="ingredient.name">
+    </div>
+    </div>
+  </div>
+
+  <p class="fs-3">Recipe Steps</p>
+  <hr class="dropdown-divider">
+
+  <div>
+    <div *ngFor="let step of recipe.steps; let i = index">
+      <div class="input-group mb-3">
+        <span class="input-group-text">{{i+1}}.</span>
+        <textarea class="form-control" [value]="step" ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="downButton">
+  <button type="button" class="btn btn-primary">Save Changes</button>
+  </div>
+
+</div>

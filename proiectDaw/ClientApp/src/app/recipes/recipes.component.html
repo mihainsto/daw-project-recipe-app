@@ -1,7 +1,84 @@
-<h1>Counter</h1>
+<div class="recipesPage">
+  <div class="input-group mb-3">
+    <input #searchBox type="text" class="form-control" placeholder="Search"
+           aria-label="Search" aria-describedby="basic-addon1"
+           (keyup.enter)="updateSearchValue(searchBox.value)"
+           (blur)="updateSearchValue(searchBox.value)"
+           (keyup)="updateSearchValue(searchBox.value)">
 
-<p>This is a simple example of an Angular component.</p>
+  </div>
 
-<p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
+  <div class="optionsCheckbox">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="cerealCheck"
+             (change)="changeFilterField('cereal')">
+      <label class="form-check-label" for="cerealCheck">
+        cereal
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="cheeseCheck"
+             (change)="changeFilterField('cheese')">
+      <label class="form-check-label" for="cheeseCheck">
+        cheese
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="eggCheck"
+             (change)="changeFilterField('egg')">
+      <label class="form-check-label" for="eggCheck">
+        egg
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="oilCheck"
+             (change)="changeFilterField('oil')">
+      <label class="form-check-label" for="oilCheck">
+        oil
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="pastaCheck"
+             (change)="changeFilterField('pasta')">
+      <label class="form-check-label" for="pastaCheck">
+        pasta
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="sauceCheck"
+             (change)="changeFilterField('sauce')">
+      <label class="form-check-label" for="sauceCheck">
+        sauce
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="spiceCheck"
+             (change)="changeFilterField('spice')">
+      <label class="form-check-label" for="spiceCheck">
+        spice
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="vegetableCheck"
+             (change)="changeFilterField('vegetable')">
+      <label class="form-check-label" for="vegetableCheck">
+        vegetable
+      </label>
+    </div>
+  </div>
 
-<button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+  <div class="recipesList">
+    <div *ngFor="let recipe of recipes">
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1528658948776-cf610b846f80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
+          class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{recipe.name}}</h5>
+          <p class="card-text">{{recipe.description}}</p>
+          <a [routerLink]="['/recipe', recipe.id]" href="#" class="btn btn-primary">See more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

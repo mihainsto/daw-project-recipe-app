@@ -1,0 +1,14 @@
+.badgesGroup{
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+
+}
+.badgesFlex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
