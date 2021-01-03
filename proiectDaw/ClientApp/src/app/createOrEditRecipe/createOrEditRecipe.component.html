@@ -1,6 +1,11 @@
 <div>
 
-  <p class="fs-1">Edit the Recipe</p>
+  <div *ngIf="action === 'UPDATE'">
+    <p class="fs-1">Edit the Recipe</p>
+  </div>
+  <div *ngIf="action === 'CREATE'">
+    <p class="fs-1">Create a new Recipe</p>
+  </div>
   <hr class="dropdown-divider mb-lg-5">
 
   <p class="fs-3">General Data</p>
@@ -46,8 +51,6 @@
                [formControl]="ingredientsName.controls[i]">
 
         <span class="input-group-text">Ingredient Type</span>
-        <!--        <input type="text" class="form-control" placeholder="Type something"-->
-        <!--               [formControl]="ingredientsTypes.controls[i]">-->
         <select class="custom-select" [formControl]="ingredientsTypes.controls[i]">
           <option value="cereal">Cereal</option>
           <option value="cheese">Cheese</option>
@@ -73,7 +76,7 @@
   <p class="fs-3">Recipe Steps</p>
   <hr class="dropdown-divider">
 
-  <div class="mb-5">
+  <div class="mb-5" >
     <div *ngFor="let step of steps.controls; let i = index">
       <div class="input-group mb-3">
         <span class="input-group-text">{{i + 1}}.</span>
@@ -83,8 +86,14 @@
     <button type="button" class="btn btn-primary" (click)="addNewStep()">Add step</button>
   </div>
 
-  <div class="downButton">
+  <div class="downButton" *ngIf="recipe">
     <a [routerLink]="['/recipe', recipe.id]">
+      <button type="button" class="btn btn-primary" (click)="saveChangesButtonClicked()">Save Changes</button>
+    </a>
+  </div>
+
+  <div class="downButton" *ngIf="!recipe">
+    <a [routerLink]="['/recipes']">
       <button type="button" class="btn btn-primary" (click)="saveChangesButtonClicked()">Save Changes</button>
     </a>
   </div>

@@ -1,8 +1,6 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
-import { map } from "rxjs/operators";
 import { FormArray, FormControl, NgForm, Validators } from "@angular/forms";
 
 @Component({
@@ -15,7 +13,7 @@ export class CreateOrEditRecipe implements OnInit {
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
   private id: string;
-  state$: Observable<object>;
+  private action: 'CREATE' | 'UPDATE';
 
   name = new FormControl(null, [Validators.required]);
   kcal = new FormControl(null, [Validators.required]);
@@ -90,6 +88,33 @@ export class CreateOrEditRecipe implements OnInit {
       );
   }
 
+  private createRecipe(http: HttpClient, baseUrl: string) {
+    http
+      .post<Recipe>(
+        baseUrl + "recipe/create",
+        {
+          id: this.id,
+          name: this.name.value,
+          kcal: this.kcal.value,
+          time: this.time.value,
+          mealType: this.mealType.value,
+          difficulty: this.difficulty.value,
+          description: this.description.value,
+          ingredientsName: this.ingredientsName.value,
+          ingredientsQuantity: this.ingredientsQuantity.value,
+          ingredientsTypes: this.ingredientsTypes.value,
+          steps: this.steps.value
+        },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          console.log("Create recipe");
+        },
+        (error) => console.error(error)
+      );
+  }
+
   constructor(
     public activatedRoute: ActivatedRoute,
     http: HttpClient,
@@ -97,21 +122,30 @@ export class CreateOrEditRecipe implements OnInit {
   ) {
     this.httpClient = http;
     this.baseUrl = baseUrl;
+    this.action = 'CREATE'
+
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.id = params["id"];
     });
-    this.fetchData(this.httpClient, this.baseUrl);
+    if(this.id !== 'create'){
+      this.fetchData(this.httpClient, this.baseUrl);
+      this.action = 'UPDATE'
+    }
   }
 
   saveChangesButtonClicked() {
-    // console.log({ description: this.description.value });
-    // console.log({ ing: this.ingredientsName.controls[0].value });
-    // console.log({ difficulty: this.difficulty.value });
-    // API request
-    this.updateData(this.httpClient, this.baseUrl)
+    if(this.action === 'UPDATE')
+      this.updateData(this.httpClient, this.baseUrl)
+
+    if(this.action === 'CREATE')
+      this.createRecipe(this.httpClient, this.baseUrl)
+
+    console.log({dbg: this.steps.value})
+
+    console.log({dbg: this.ingredientsName.value})
   }
 
   addNewIngredient() {
