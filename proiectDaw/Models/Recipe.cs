@@ -27,6 +27,8 @@ namespace proiectDaw.Models
         [Required] public string[] Steps { get; set; }
 
         [Required] public List<Ingredient> Ingredients { get; set; }
+        
+        [Required] public List<Review> Reviews { get; set; }
 
         [JsonProperty(PropertyName = "url")] public string CoverPhotoUrl { get; set; }
     }

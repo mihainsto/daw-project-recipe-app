@@ -29,7 +29,7 @@ namespace proiectDaw.Data
                 MealType = mealType, Steps = steps, CoverPhotoUrl = coverPhotoUrl
             };
             recipe.Ingredients = new List<Ingredient>();
-
+            recipe.Reviews = new List<Review>();
 
             for (int i = 0; i < ingredientsNames.Length; i++)
             {
@@ -41,6 +41,12 @@ namespace proiectDaw.Data
                 recipe.Ingredients.Add(ingredient);
             }
 
+            var rev1 = new Review {Text = "Love this!", Recipe = recipe};
+            recipe.Reviews.Add(rev1);
+            
+            var rev2 = new Review {Text = "This is delicious. Made this today :)", Recipe = recipe};
+            recipe.Reviews.Add(rev2);
+            
             return recipe;
         }
 

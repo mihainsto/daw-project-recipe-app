@@ -42,6 +42,9 @@
   <div class="input-group mb-5">
     <textarea class="form-control" [formControl]="review"></textarea>
     <button type="button" class="btn btn-primary">Add a new review</button>
-
   </div>
+
+  <p class="fs-5" *ngFor="let review of reviews">
+    - {{review.text}}
+  </p>
 </div>

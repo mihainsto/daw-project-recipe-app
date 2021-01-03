@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { map } from "rxjs/operators";
-import { Recipe } from "../recipes/recipes.component";
+import {Ingredient, Recipe} from "../recipes/recipes.component";
 import {FormControl} from "@angular/forms";
 
 @Component({
@@ -13,6 +13,7 @@ import {FormControl} from "@angular/forms";
 })
 export class RecipeComponent implements OnInit {
   public recipe: Recipe;
+  public reviews: Review[];
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
   private id: string;
@@ -34,6 +35,20 @@ export class RecipeComponent implements OnInit {
       );
   }
 
+  private fetchReviews(http: HttpClient, baseUrl: string) {
+    http
+      .post<Review[]>(
+        baseUrl + "review/reviews",
+        { id: this.id },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          this.reviews = result;
+        },
+        (error) => console.error(error)
+      );
+  }
   constructor(
     public activatedRoute: ActivatedRoute,
     http: HttpClient,
@@ -48,5 +63,11 @@ export class RecipeComponent implements OnInit {
       this.id = params["id"];
     });
     this.fetchData(this.httpClient, this.baseUrl);
+    this.fetchReviews(this.httpClient, this.baseUrl)
   }
+}
+
+export interface Review {
+  id: number;
+  text: string;
 }

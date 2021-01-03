@@ -25,10 +25,17 @@ namespace proiectDaw.Data
                 .HasOne(p => p.Recipe)
                 .WithMany(b => b.Ingredients)
                 .HasForeignKey(p => p.RecipeId);
+            
+            modelBuilder.Entity<Review>()
+                .HasOne(p => p.Recipe)
+                .WithMany(b => b.Reviews)
+                .HasForeignKey(p => p.RecipeId);
         }
         
         public DbSet<Recipe> Recipes { get; set; }
         
         public DbSet<Ingredient> Ingredients { get; set; }
+        
+        public DbSet<Review> Reviews { get; set; }
     }
 }
