@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FormArray, FormControl, NgForm, Validators } from "@angular/forms";
 import { Recipe } from "../recipes/recipes.component";
 
@@ -11,6 +11,9 @@ import { Recipe } from "../recipes/recipes.component";
 })
 export class CreateOrEditRecipe implements OnInit {
   public recipe: Recipe;
+  public error: boolean;
+  public success: boolean;
+
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
   private id: string;
@@ -60,7 +63,9 @@ export class CreateOrEditRecipe implements OnInit {
             this.steps.push(new FormControl(step, [Validators.required]));
           });
         },
-        (error) => console.error(error)
+        (error) => {
+          console.error(error);
+        }
       );
   }
 
@@ -89,8 +94,13 @@ export class CreateOrEditRecipe implements OnInit {
       .subscribe(
         (result) => {
           console.log("Updated data");
+          this.success = true;
+          this.router.navigate(["recipe", this.id]);
         },
-        (error) => console.error(error)
+        (error) => {
+          console.error(error);
+          this.error = true;
+        }
       );
   }
 
@@ -119,8 +129,14 @@ export class CreateOrEditRecipe implements OnInit {
       .subscribe(
         (result) => {
           console.log("Create recipe");
+          this.error = false;
+          this.success = true;
+          this.router.navigate(["recipe", this.id]);
         },
-        (error) => console.error(error)
+        (error) => {
+          console.error(error);
+          this.error = true;
+        }
       );
   }
 
@@ -133,12 +149,19 @@ export class CreateOrEditRecipe implements OnInit {
       )
       .subscribe(
         (result) => {
+          this.error = false;
+          this.success = true;
+          this.router.navigate(["recipes"]);
         },
-        (error) => console.error(error)
+        (error) => {
+          console.error(error);
+          this.error = true;
+        }
       );
   }
 
   constructor(
+    private router: Router,
     public activatedRoute: ActivatedRoute,
     http: HttpClient,
     @Inject("BASE_URL") baseUrl: string
@@ -146,6 +169,8 @@ export class CreateOrEditRecipe implements OnInit {
     this.httpClient = http;
     this.baseUrl = baseUrl;
     this.action = "CREATE";
+    this.error = false;
+    this.success = false;
   }
 
   ngOnInit() {
@@ -168,8 +193,9 @@ export class CreateOrEditRecipe implements OnInit {
 
   }
 
-  deleteRecipeButtonClicked(){
+  deleteRecipeButtonClicked() {
     this.deleteRecipe(this.httpClient, this.baseUrl);
+
   }
 
   addNewIngredient() {

@@ -22,7 +22,7 @@
 
   <div class="input-group mb-3">
     <span class="input-group-text">Number of Kcal</span>
-    <input type="text" class="form-control" placeholder="Type something" [formControl]="kcal">
+    <input type="number" class="form-control" placeholder="Type something" [formControl]="kcal">
     <span class="input-group-text">Type</span>
     <input type="text" class="form-control" placeholder="Type something" [formControl]="mealType">
     <span class="input-group-text">Difficulty</span>
@@ -32,7 +32,7 @@
       <option value="Medium">Hard</option>
     </select>
     <span class="input-group-text">Duration in minutes</span>
-    <input type="text" class="form-control" placeholder="Type something" [formControl]="time">
+    <input type="number" class="form-control" placeholder="Type something" [formControl]="time">
   </div>
 
   <div class="input-group mb-5">
@@ -78,6 +78,7 @@
 
   </div>
 
+
   <p class="fs-3">Recipe Steps</p>
   <hr class="dropdown-divider">
 
@@ -92,21 +93,24 @@
   </div>
 
   <div class="downButton" *ngIf="recipe">
-    <a [routerLink]="['/recipe', recipe.id]">
       <button type="button" class="btn btn-primary" (click)="saveChangesButtonClicked()">Save Changes</button>
-    </a>
 
-    <a [routerLink]="['/recipes']">
       <button type="button" class="btn btn-danger" (click)="deleteRecipeButtonClicked()">Delete Recipe</button>
-    </a>
   </div>
 
 
 
 
   <div class="downButton" *ngIf="!recipe">
-    <a [routerLink]="['/recipes']">
       <button type="button" class="btn btn-primary" (click)="saveChangesButtonClicked()">Save Changes</button>
-    </a>
+  </div>
+
+  <div *ngIf="success" class="text-success">
+    Data saved succesfully, you will be redirected!
+  </div>
+
+  <div *ngIf="error" class="text-danger">
+    There was an error, please check the input fields.
   </div>
 </div>
+
