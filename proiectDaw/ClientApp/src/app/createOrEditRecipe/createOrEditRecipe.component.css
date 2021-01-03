@@ -12,8 +12,11 @@
 }
 
 .downButton{
-  text-align: right;
   margin-bottom: 50px;
+  display: flex;
+  gap: 20px;
+  justify-content: right;
+  float: right;
 }
 .custom-select{
   background-color: white;

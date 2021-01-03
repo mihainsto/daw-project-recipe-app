@@ -200,5 +200,28 @@ namespace proiectDaw.Controllers
             
             return true;
         }
+        
+        [HttpPost("/recipe/delete")]
+        public Boolean Delete()
+        {
+            var keys = Request.Form.Keys;
+            var id = "";
+
+            foreach (var key in keys)
+            {
+                var json = JObject.Parse(key);
+                if (json.ContainsKey("id"))
+                {
+                    id = json["id"].ToString();
+                }
+            }
+            var recipesDB =
+                _context.Recipes.Include(e => e.Ingredients)
+                    .Where(rcp => rcp.Id.ToString() == id);
+
+            _context.Recipes.Remove(recipesDB.First());
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

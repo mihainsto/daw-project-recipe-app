@@ -95,7 +95,14 @@
     <a [routerLink]="['/recipe', recipe.id]">
       <button type="button" class="btn btn-primary" (click)="saveChangesButtonClicked()">Save Changes</button>
     </a>
+
+    <a [routerLink]="['/recipes']">
+      <button type="button" class="btn btn-danger" (click)="deleteRecipeButtonClicked()">Delete Recipe</button>
+    </a>
   </div>
+
+
+
 
   <div class="downButton" *ngIf="!recipe">
     <a [routerLink]="['/recipes']">

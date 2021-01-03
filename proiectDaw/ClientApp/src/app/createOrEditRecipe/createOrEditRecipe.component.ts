@@ -80,7 +80,9 @@ export class CreateOrEditRecipe implements OnInit {
           ingredientsQuantity: this.ingredientsQuantity.value,
           ingredientsTypes: this.ingredientsTypes.value,
           steps: this.steps.value,
-          coverPhotoUrl: btoa(this.imageUrl.value.toString()).split("=").join("EQUAL")
+          coverPhotoUrl: btoa(this.imageUrl.value.toString())
+            .split("=")
+            .join("EQUAL"),
         },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       )
@@ -108,13 +110,29 @@ export class CreateOrEditRecipe implements OnInit {
           ingredientsQuantity: this.ingredientsQuantity.value,
           ingredientsTypes: this.ingredientsTypes.value,
           steps: this.steps.value,
-          coverPhotoUrl: btoa(this.imageUrl.value.toString()).split("=").join("EQUAL")
+          coverPhotoUrl: btoa(this.imageUrl.value.toString())
+            .split("=")
+            .join("EQUAL"),
         },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       )
       .subscribe(
         (result) => {
           console.log("Create recipe");
+        },
+        (error) => console.error(error)
+      );
+  }
+
+  private deleteRecipe(http: HttpClient, baseUrl: string) {
+    http
+      .post<boolean>(
+        baseUrl + "recipe/delete",
+        { id: this.id },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
         },
         (error) => console.error(error)
       );
@@ -147,9 +165,11 @@ export class CreateOrEditRecipe implements OnInit {
     if (this.action === "CREATE")
       this.createRecipe(this.httpClient, this.baseUrl);
 
-    console.log({ dbg: this.steps.value });
 
-    console.log({ dbg: this.ingredientsName.value });
+  }
+
+  deleteRecipeButtonClicked(){
+    this.deleteRecipe(this.httpClient, this.baseUrl);
   }
 
   addNewIngredient() {
