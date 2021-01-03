@@ -11,7 +11,7 @@ using proiectDaw.Models;
 
 namespace proiectDaw.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

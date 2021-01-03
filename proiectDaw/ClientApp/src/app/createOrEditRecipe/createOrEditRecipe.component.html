@@ -1,0 +1,100 @@
+<div>
+
+  <div *ngIf="action === 'UPDATE'">
+    <p class="fs-1">Edit the Recipe</p>
+  </div>
+  <div *ngIf="action === 'CREATE'">
+    <p class="fs-1">Create a new Recipe</p>
+  </div>
+  <hr class="dropdown-divider mb-lg-5">
+
+  <p class="fs-3">General Data</p>
+  <hr class="dropdown-divider">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Title</span>
+    <input type="text" class="form-control" placeholder="Type something" [formControl]="name">
+  </div>
+
+  <div class="input-group mb-3">
+    <span class="input-group-text">Number of Kcal</span>
+    <input type="text" class="form-control" placeholder="Type something" [formControl]="kcal">
+    <span class="input-group-text">Type</span>
+    <input type="text" class="form-control" placeholder="Type something" [formControl]="mealType">
+    <span class="input-group-text">Difficulty</span>
+    <select class="custom-select" [formControl]="difficulty">
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Medium">Hard</option>
+    </select>
+    <span class="input-group-text">Duration in minutes</span>
+    <input type="text" class="form-control" placeholder="Type something" [formControl]="time">
+  </div>
+
+  <div class="input-group mb-5">
+    <span class="input-group-text">Description</span>
+    <textarea class="form-control" [formControl]="description"></textarea>
+  </div>
+
+  <p class="fs-3">Ingredients</p>
+  <hr class="dropdown-divider">
+
+
+  <div class="mb-5">
+    <div *ngFor="let ingredient of ingredientsName.controls; let i = index">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Ingredient Quantity</span>
+        <input type="text" class="form-control" placeholder="Type something"
+               [formControl]="ingredientsQuantity.controls[i]">
+
+        <span class="input-group-text">Ingredient Name</span>
+        <input type="text" class="form-control" placeholder="Type something"
+               [formControl]="ingredientsName.controls[i]">
+
+        <span class="input-group-text">Ingredient Type</span>
+        <select class="custom-select" [formControl]="ingredientsTypes.controls[i]">
+          <option value="cereal">Cereal</option>
+          <option value="cheese">Cheese</option>
+          <option value="egg">Egg</option>
+          <option value="oil">Oil</option>
+          <option value="pasta">Pasta</option>
+          <option value="meat">Meat</option>
+          <option value="sauce">Sauce</option>
+          <option value="sweet">Sweet</option>
+          <option value="vegetable">Vegetable</option>
+          <option value="fruit">Fruit</option>
+          <option value="spice">Spice</option>
+          <option value="misc">Misc</option>
+        </select>
+
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="addNewIngredient()">Add ingredient</button>
+
+  </div>
+
+  <p class="fs-3">Recipe Steps</p>
+  <hr class="dropdown-divider">
+
+  <div class="mb-5" >
+    <div *ngFor="let step of steps.controls; let i = index">
+      <div class="input-group mb-3">
+        <span class="input-group-text">{{i + 1}}.</span>
+        <textarea class="form-control" [formControl]="steps.controls[i]"></textarea>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="addNewStep()">Add step</button>
+  </div>
+
+  <div class="downButton" *ngIf="recipe">
+    <a [routerLink]="['/recipe', recipe.id]">
+      <button type="button" class="btn btn-primary" (click)="saveChangesButtonClicked()">Save Changes</button>
+    </a>
+  </div>
+
+  <div class="downButton" *ngIf="!recipe">
+    <a [routerLink]="['/recipes']">
+      <button type="button" class="btn btn-primary" (click)="saveChangesButtonClicked()">Save Changes</button>
+    </a>
+  </div>
+</div>

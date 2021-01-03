@@ -34,7 +34,7 @@ namespace proiectDaw.Data
             for (int i = 0; i < ingredientsNames.Length; i++)
             {
                 var ingredient = new Ingredient
-                    {Name = ingredientsNames[i], Quantity = ingredientsNames[i], Recipe = recipe, Type = ingredientsTypes[i]};
+                    {Name = ingredientsNames[i], Quantity = ingredientsQuantity[i], Recipe = recipe, Type = ingredientsTypes[i]};
                 recipe.Ingredients.Add(ingredient);
             }
 
@@ -81,7 +81,7 @@ namespace proiectDaw.Data
                 },
                 new string[]
                 {
-                    "3 Tbsp", "4oz", "4", "2", "1 tsp", "Tbsp", "1 lb"
+                    "3 Tbsp", "4oz", "4", "2", "1 tsp", "Tbsp", "1 tsp", "1 lb"
                 },
                 new string[]
                 {
@@ -117,7 +117,7 @@ namespace proiectDaw.Data
                 {
                     "vegetable", "vegetable", "vegetable", "vegetable", "sauce", "vegetable", "vegetable", "oil", "spice", "vegetable", "spice", "misc", "vegetable", "fruit", "sauce", "spice"
                 });
-
+            
             _context.Recipes.Add(recipe2);
             var recipe3 = createRecipe("Tahini Billionaire Bars",
                 "For the seventh recipe in the Basically Guide to Better Baking, we took the millionaire bar—shortbread plus caramel plus chocolate (think of it like an oversized Twix)—and gave it an upgrade with sesame seeds and tahini. The shortbread is tender, the filling is gooey, and the chocolate ties it all together. Be sure to give the tahini a good stir with a butter knife or mini offset spatula before you whisk it into the butterscotch—it has a tendency to separate. Slice the finished bars into pieces using a serrated knife so that you can saw through the layers rather than smoosh them. If you're still having trouble, just stick them in the freezer until the butterscotch is firm enough to easily slice. More questions? Head to our forum where we're eager to help. ",
@@ -142,10 +142,10 @@ namespace proiectDaw.Data
                     "chilled unsalted butter", "large eggs", "light brown sugar", "heavy cream", "tahini",
                     "vanilla extract", "bittersweet chocolate"
                 },
-                new string[] {"125 g", "83 g", "1/3 cup", "2 3/4 cup", "1 cup", "3/4 cup", "1 cup", "1 tsp", "6 oz"},
+                new string[] {"125 g", "83 g", "1/3 cup", "2 3/4 cup", "1 cup", "3/4 cup", "1 cup", "1 tsp", "1 tsp","1 tsp", "1 tsp", "6 oz"},
                 new string[] {"oil", "cereal", "spice", "spice", "spice", "misc", "egg", "spice", "misc", "misc", "misc", "sweet"});
             _context.Recipes.Add(recipe3);
-
+            
             var recipe4 = createRecipe("Classic Chicken Noodle Soup",
                 "There are tons of shortcuts for chicken noodle soup, but this time we're not cutting corners—this is the long game! This version is about as classic (and as comforting) as they come, using a whole chicken—bones, skin, and all—to lend flavor and body to the broth. The key is to treat the breasts and legs differently: The breasts need to be pulled early so they don't overcook and dry out, whereas the legs require a long simmer to become incredibly tender. We used ditalini here, but feel free to use any small quick-cooking pasta you have! We wouldn’t be mad about orzo or ABCs either.",
                 210, "Medium", 80, "Soup",
@@ -177,7 +177,7 @@ namespace proiectDaw.Data
                 },
                 new string[] {"1 3-4 lb", "4 tsb", "2", "4", "4", "2", "1", "1/2", "6 os", "1 tsb"},
                 new string[] {"meat", "spice", "vegetable", "vegetable", "vegetable", "vegetable", "spice", "spice", "misc", "spice"});
-
+            
             _context.Recipes.Add(recipe4);
             _context.SaveChanges();
             //Seeding the db

@@ -1,0 +1,19 @@
+.recipesList{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.recipesPage{
+  padding-top: 50px;
+}
+
+.optionsCheckbox{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}

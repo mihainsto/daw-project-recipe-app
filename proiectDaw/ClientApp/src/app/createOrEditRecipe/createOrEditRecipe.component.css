@@ -1,0 +1,39 @@
+.badgesGroup{
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+.badgesFlex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.downButton{
+  text-align: right;
+  margin-bottom: 50px;
+}
+.custom-select{
+  background-color: white;
+  margin-left: 10px;
+  margin-right: 1px;
+  border-color: gray;
+}
+
+
+@media (max-width:480px)  {
+  .input-group{
+    flex-direction: column;
+  }
+  .form-control{
+    width: 100%;
+  }
+  .custom-select{
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
