@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace proiectDaw.Models
 {
@@ -14,6 +15,6 @@ namespace proiectDaw.Models
 
         [Required] public int RecipeId { get; set; }
 
-        [Required] public Recipe Recipe { get; set; }
+        [JsonIgnore] [Required] public Recipe Recipe { get; set; }
     }
 }
