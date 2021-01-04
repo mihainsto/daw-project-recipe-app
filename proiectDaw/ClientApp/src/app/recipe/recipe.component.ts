@@ -70,4 +70,5 @@ export class RecipeComponent implements OnInit {
 export interface Review {
   id: number;
   text: string;
+  userEmail: string;
 }

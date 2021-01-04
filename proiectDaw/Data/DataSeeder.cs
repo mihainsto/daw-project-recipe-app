@@ -41,12 +41,13 @@ namespace proiectDaw.Data
                 recipe.Ingredients.Add(ingredient);
             }
 
-            var rev1 = new Review {Text = "Love this!", Recipe = recipe};
+            var rev1 = new Review {Text = "Love this!", Recipe = recipe, userEmail = "test@gmail.com"};
             recipe.Reviews.Add(rev1);
-            
-            var rev2 = new Review {Text = "This is delicious. Made this today :)", Recipe = recipe};
+
+            var rev2 = new Review
+                {Text = "This is delicious. Made this today :)", Recipe = recipe, userEmail = "test@gmail.com"};
             recipe.Reviews.Add(rev2);
-            
+
             return recipe;
         }
 

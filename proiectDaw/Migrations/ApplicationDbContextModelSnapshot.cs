@@ -383,6 +383,10 @@ namespace proiectDaw.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("userEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RecipeId");

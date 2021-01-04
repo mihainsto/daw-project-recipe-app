@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -32,10 +33,10 @@ namespace proiectDaw.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            // var recipe = new Recipe();
-            // recipe.Name = "BINE BA!!";
-            // _context.Recipes.Add(recipe);
-            // _context.SaveChanges();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.Where(usr => usr.Id == userId).First();
+                        
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

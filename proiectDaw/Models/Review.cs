@@ -9,6 +9,8 @@ namespace proiectDaw.Models
 
         [Required] public string Text { get; set; }
         
+        [Required] public string userEmail { get; set; }
+        
         [Required] public int RecipeId { get; set; }
 
         [JsonIgnore] [Required] public Recipe Recipe { get; set; }

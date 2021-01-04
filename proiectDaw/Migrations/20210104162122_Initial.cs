@@ -236,6 +236,7 @@ namespace proiectDaw.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Text = table.Column<string>(nullable: false),
+                    userEmail = table.Column<string>(nullable: false),
                     RecipeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

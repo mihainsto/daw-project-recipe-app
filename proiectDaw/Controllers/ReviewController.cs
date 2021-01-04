@@ -40,8 +40,6 @@ namespace proiectDaw.Controllers
             }
 
             var reviewsDB = _context.Reviews.Where(rv => rv.RecipeId.ToString() == id);
-            Console.WriteLine("LoggedInUser");
-            Console.WriteLine(LoggedInUser);
             return reviewsDB.ToList();
         }
     }

@@ -44,7 +44,16 @@
     <button type="button" class="btn btn-primary">Add a new review</button>
   </div>
 
-  <p class="fs-5" *ngFor="let review of reviews">
-    - {{review.text}}
-  </p>
+
+  <div class="fs-5" *ngFor="let review of reviews">
+    <div class="card mb-5">
+      <div class="card-header">
+        {{review.userEmail}}
+      </div>
+      <div class="card-body">
+        {{review.text}}
+      </div>
+    </div>
+  </div>
 </div>
+

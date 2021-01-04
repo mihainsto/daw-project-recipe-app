@@ -10,7 +10,7 @@ using proiectDaw.Data;
 namespace proiectDaw.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210103192758_Initial")]
+    [Migration("20210104162122_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -382,6 +382,10 @@ namespace proiectDaw.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("userEmail")
                         .IsRequired()
                         .HasColumnType("text");
 
