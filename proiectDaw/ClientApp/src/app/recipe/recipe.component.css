@@ -12,3 +12,16 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+.reviewCardHeader{
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.reviewCardButtons{
+  display: flex;
+  text-align: center;
+  gap: 10px;
+  cursor: pointer;
+}

@@ -38,7 +38,7 @@ import {CreateOrEditRecipe} from "./createOrEditRecipe/createOrEditRecipe.compon
       { path: 'counter', component: CounterComponent },
       { path: 'recipes', component: RecipesComponent },
       { path: 'recipe/:id', component: RecipeComponent },
-      { path: 'createOrEditRecipe/:id', component: CreateOrEditRecipe },
+      { path: 'createOrEditRecipe/:id', component: CreateOrEditRecipe, canActivate: [AuthorizeGuard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
   ],

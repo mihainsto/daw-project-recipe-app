@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
@@ -86,6 +87,7 @@ namespace proiectDaw.Controllers
             return recipesDB.First();
         }
 
+        [Authorize]
         [RequestFormLimits(KeyLengthLimit = 30_000, ValueCountLimit = 1500, ValueLengthLimit = 100_000)]
         [HttpPost("/recipe/update")]
         public Boolean Update()
@@ -150,6 +152,7 @@ namespace proiectDaw.Controllers
             return true;
         }
 
+        [Authorize]
         [RequestFormLimits(KeyLengthLimit = 30_000, ValueCountLimit = 1500, ValueLengthLimit = 100_000)]
         [HttpPost("/recipe/create")]
         public Boolean Create()
@@ -181,6 +184,7 @@ namespace proiectDaw.Controllers
                 recipe.Time = time;
                 recipe.MealType = mealType;
                 recipe.Ingredients = new List<Ingredient>();
+                recipe.Reviews = new List<Review>();
                 if (imageUrl != null)
                 {
                     var convertedPhoto = imageUrl.ToString().Replace("EQUAL", "=");
@@ -201,6 +205,7 @@ namespace proiectDaw.Controllers
             return true;
         }
         
+        [Authorize]
         [HttpPost("/recipe/delete")]
         public Boolean Delete()
         {
