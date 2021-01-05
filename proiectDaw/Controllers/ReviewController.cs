@@ -18,7 +18,6 @@ namespace proiectDaw.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public string LoggedInUser => User.Identity.Name;
 
         public ReviewController(ApplicationDbContext context)
         {

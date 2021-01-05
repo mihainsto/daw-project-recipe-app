@@ -10,7 +10,7 @@ using proiectDaw.Data;
 namespace proiectDaw.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210104162122_Initial")]
+    [Migration("20210105115756_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -337,6 +337,9 @@ namespace proiectDaw.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
                     b.Property<string>("CoverPhotoUrl")
                         .HasColumnType("text");
 
@@ -367,6 +370,8 @@ namespace proiectDaw.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Recipes");
                 });
@@ -454,6 +459,13 @@ namespace proiectDaw.Migrations
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("proiectDaw.Models.Recipe", b =>
+                {
+                    b.HasOne("proiectDaw.Models.ApplicationUser", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("proiectDaw.Models.Review", b =>

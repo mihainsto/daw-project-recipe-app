@@ -335,6 +335,9 @@ namespace proiectDaw.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
                     b.Property<string>("CoverPhotoUrl")
                         .HasColumnType("text");
 
@@ -365,6 +368,8 @@ namespace proiectDaw.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Recipes");
                 });
@@ -452,6 +457,13 @@ namespace proiectDaw.Migrations
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("proiectDaw.Models.Recipe", b =>
+                {
+                    b.HasOne("proiectDaw.Models.ApplicationUser", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("proiectDaw.Models.Review", b =>

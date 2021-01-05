@@ -9,6 +9,7 @@ import { HttpClient } from "@angular/common/http";
 export class RecipesComponent {
   public currentCount = 0;
   public recipes: Recipe[];
+  public favorites: number[];
   public searchValue = "";
   public filterOptions = {
     cereal: false,
@@ -38,9 +39,56 @@ export class RecipesComponent {
       .subscribe(
         (result) => {
           this.recipes = result;
-          console.log(this.recipes[0])
+          console.log(this.recipes[0]);
         },
         (error) => console.error(error)
+      );
+  }
+
+  private addRecipeToFavorite(id: number) {
+    this.httpClient
+      .post<boolean>(
+        this.baseUrl + "favorites/add",
+        { id: id },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          console.log({ result });
+          this.getFavorites();
+        },
+        (error) => {}
+      );
+  }
+
+  private removeRecipeFromFavorite(id: number) {
+    this.httpClient
+      .post<boolean>(
+        this.baseUrl + "favorites/remove",
+        { id: id },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          // this.favorites.splice(this.favorites.indexOf(id), 1);
+          this.getFavorites();
+        },
+        (error) => {}
+      );
+  }
+
+  private getFavorites() {
+    this.httpClient
+      .post<number[]>(
+        this.baseUrl + "favorites/get",
+        { id: "test" },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          this.favorites = result;
+        },
+        (error) => {}
       );
   }
 
@@ -48,6 +96,7 @@ export class RecipesComponent {
     this.httpClient = http;
     this.baseUrl = baseUrl;
     this.fetchData(http, baseUrl);
+    this.getFavorites();
     this.onlyFav = false;
   }
 
@@ -86,4 +135,3 @@ export interface Ingredient {
   type: string;
   recipeId: number;
 }
-
