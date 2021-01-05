@@ -25,6 +25,14 @@
   border-color: gray;
 }
 
+.removeInputGroup{
+  display: flex;
+  text-align: center;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
 
 @media (max-width:480px)  {
   .input-group{
@@ -37,6 +45,10 @@
     background-color: white;
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+  .removeInputGroup{
+    flex-direction: column;
+    gap: 5px;
   }
 }
 

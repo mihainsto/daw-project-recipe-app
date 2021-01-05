@@ -188,13 +188,10 @@ export class CreateOrEditRecipe implements OnInit {
 
     if (this.action === "CREATE")
       this.createRecipe(this.httpClient, this.baseUrl);
-
-
   }
 
   deleteRecipeButtonClicked() {
     this.deleteRecipe(this.httpClient, this.baseUrl);
-
   }
 
   addNewIngredient() {
@@ -205,5 +202,15 @@ export class CreateOrEditRecipe implements OnInit {
 
   addNewStep() {
     this.steps.push(new FormControl("", [Validators.required]));
+  }
+
+  removeIngredient(i: number) {
+    this.ingredientsName.removeAt(i);
+    this.ingredientsQuantity.removeAt(i);
+    this.ingredientsTypes.removeAt(i);
+  }
+
+  removeStep(i: number) {
+    this.steps.removeAt(i);
   }
 }

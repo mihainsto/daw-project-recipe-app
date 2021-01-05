@@ -21,11 +21,12 @@ namespace proiectDaw.Controllers
             _context = context;
         }
 
-        public static string Base64Decode(string base64EncodedData) {
+        public static string Base64Decode(string base64EncodedData)
+        {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
-        
+
         [HttpPost("/recipe/recipes")]
         public List<Recipe> Recipes()
         {
@@ -113,7 +114,7 @@ namespace proiectDaw.Controllers
                 var ingredientsQuantity = json["ingredientsQuantity"].ToObject<string[]>();
                 var ingredientsTypes = json["ingredientsTypes"].ToObject<string[]>();
                 var imageUrl = json["coverPhotoUrl"];
-                
+
                 recipe.Name = name;
                 recipe.Description = description;
                 recipe.Difficulty = difficulty;
@@ -126,7 +127,8 @@ namespace proiectDaw.Controllers
                     var convertedPhoto = imageUrl.ToString().Replace("EQUAL", "=");
                     recipe.CoverPhotoUrl = Base64Decode(convertedPhoto);
                 }
-                for (int i = 0; i < recipe.Ingredients.Count; i++)
+
+                for (int i = 0; i < ingredientsNames.Length; i++)
                 {
                     recipe.Ingredients[i].Name = ingredientsNames[i];
                     recipe.Ingredients[i].Quantity = ingredientsQuantity[i];
@@ -142,6 +144,13 @@ namespace proiectDaw.Controllers
                         recipe.Ingredients.Add(ing);
                     }
                 }
+
+                if (ingredientsNames.Length < recipe.Ingredients.Count)
+                {
+                    recipe.Ingredients.RemoveRange(ingredientsNames.Length,
+                        recipe.Ingredients.Count - ingredientsNames.Length);
+                }
+
 
                 _context.SaveChanges();
 
@@ -162,7 +171,7 @@ namespace proiectDaw.Controllers
             foreach (var key in keys)
             {
                 var json = JObject.Parse(key);
-                
+
                 var name = json["name"].ToString();
                 var description = json["description"].ToString();
                 var difficulty = json["difficulty"].ToString();
@@ -174,7 +183,7 @@ namespace proiectDaw.Controllers
                 var ingredientsQuantity = json["ingredientsQuantity"].ToObject<string[]>();
                 var ingredientsTypes = json["ingredientsTypes"].ToObject<string[]>();
                 var imageUrl = json["coverPhotoUrl"];
-                
+
                 var recipe = new Recipe();
                 recipe.Name = name;
                 recipe.Description = description;
@@ -190,21 +199,22 @@ namespace proiectDaw.Controllers
                     var convertedPhoto = imageUrl.ToString().Replace("EQUAL", "=");
                     recipe.CoverPhotoUrl = Base64Decode(convertedPhoto);
                 }
+
                 for (int i = 0; i < ingredientsNames.Length; i++)
                 {
                     var ing = new Ingredient
                         {Name = ingredientsNames[i], Quantity = ingredientsQuantity[i], Type = ingredientsTypes[i]};
                     recipe.Ingredients.Add(ing);
                 }
-                
+
                 _context.Add(recipe);
                 _context.SaveChanges();
                 return true;
             }
-            
+
             return true;
         }
-        
+
         [Authorize]
         [HttpPost("/recipe/delete")]
         public Boolean Delete()
@@ -220,6 +230,7 @@ namespace proiectDaw.Controllers
                     id = json["id"].ToString();
                 }
             }
+
             var recipesDB =
                 _context.Recipes.Include(e => e.Ingredients)
                     .Where(rcp => rcp.Id.ToString() == id);
