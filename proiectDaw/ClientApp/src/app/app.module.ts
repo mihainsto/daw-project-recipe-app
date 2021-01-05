@@ -15,6 +15,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import {RecipesComponent} from "./recipes/recipes.component";
 import {RecipeComponent} from "./recipe/recipe.component";
 import {CreateOrEditRecipe} from "./createOrEditRecipe/createOrEditRecipe.component";
+import {SlideshowModule} from "ng-simple-slideshow";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {CreateOrEditRecipe} from "./createOrEditRecipe/createOrEditRecipe.compon
     CreateOrEditRecipe,
   ],
   imports: [
+    SlideshowModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,

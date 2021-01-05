@@ -1,0 +1,47 @@
+.slideShowContainer{
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  position: absolute;
+  left: 0;
+  z-index: -1;
+}
+
+.homePageContent{
+  padding-top: 13vh;
+  position: absolute;
+  left: 20vw;
+  color: white;
+}
+
+.title{
+  font-size: 100px;
+}
+
+.text{
+  font-size: 50px;
+}
+
+.buttonsGroup{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@media (max-width:480px) {
+  .slideShowContainer{
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+    position: fixed;
+    left: 0;
+    z-index: -1;
+  }
+  .title{
+    font-size: 50px;
+  }
+
+  .text{
+    font-size: 25px;
+  }
+}

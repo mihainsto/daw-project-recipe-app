@@ -18,6 +18,7 @@ code {
 
 body{
   margin-left: 100px;
+  background-color:transparent !important;
 }
 
 @media (max-width:480px)  {
