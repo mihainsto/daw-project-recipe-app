@@ -299,6 +299,28 @@ namespace proiectDaw.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("proiectDaw.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favorites");
+                });
+
             modelBuilder.Entity("proiectDaw.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
@@ -335,9 +357,6 @@ namespace proiectDaw.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("text");
-
                     b.Property<string>("CoverPhotoUrl")
                         .HasColumnType("text");
 
@@ -368,8 +387,6 @@ namespace proiectDaw.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Recipes");
                 });
@@ -450,6 +467,19 @@ namespace proiectDaw.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("proiectDaw.Models.Favorite", b =>
+                {
+                    b.HasOne("proiectDaw.Models.Recipe", "Recipe")
+                        .WithMany("Favorites")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("proiectDaw.Models.ApplicationUser", "User")
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("proiectDaw.Models.Ingredient", b =>
                 {
                     b.HasOne("proiectDaw.Models.Recipe", "Recipe")
@@ -457,13 +487,6 @@ namespace proiectDaw.Migrations
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("proiectDaw.Models.Recipe", b =>
-                {
-                    b.HasOne("proiectDaw.Models.ApplicationUser", null)
-                        .WithMany("Favorites")
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("proiectDaw.Models.Review", b =>

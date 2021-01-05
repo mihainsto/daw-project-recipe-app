@@ -41,13 +41,20 @@ namespace proiectDaw.Controllers
             }
 
             var recipe = _context.Recipes.Where(rcp => rcp.Id.ToString() == id).First();
-            
+
             if (user.Favorites == null)
             {
-                user.Favorites = new List<Recipe>();
+                user.Favorites = new List<Favorite>();
             }
-            
-            user.Favorites.Add(recipe);
+
+            if (recipe.Favorites == null)
+            {
+                recipe.Favorites = new List<Favorite>();
+            }
+
+            var fav = new Favorite {Recipe = recipe, User = user};
+            user.Favorites.Add(fav);
+            recipe.Favorites.Add(fav);
 
             _context.SaveChanges();
             return id;
@@ -58,15 +65,16 @@ namespace proiectDaw.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.Users.Where(usr => usr.Id == userId).Include(usr => usr.Favorites).First();
+            var favorites = _context.Favorites.Where(fav => fav.UserId == user.Id);
             var response = new List<Int32>();
-            foreach (var userFavorite in user.Favorites)
+            foreach (var userFavorite in favorites)
             {
-                response.Add(userFavorite.Id);
+                response.Add(userFavorite.RecipeId);
             }
 
             return response;
         }
-        
+
         [HttpPost("/favorites/remove")]
         public string Remove()
         {
@@ -74,7 +82,7 @@ namespace proiectDaw.Controllers
             var id = "";
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.Users.Where(usr => usr.Id == userId).First();
-
+        
             foreach (var key in keys)
             {
                 var json = JObject.Parse(key);
@@ -83,10 +91,11 @@ namespace proiectDaw.Controllers
                     id = json["id"].ToString();
                 }
             }
-
-            var recipe = _context.Recipes.Where(rcp => rcp.Id.ToString() == id).First();
-            user.Favorites.Remove(recipe);
-
+        
+            var favorite = _context.Favorites
+                .Where(fav => fav.RecipeId.ToString() == id && fav.UserId == user.Id).First();
+            _context.Favorites.Remove(favorite);
+        
             _context.SaveChanges();
             return id;
         }

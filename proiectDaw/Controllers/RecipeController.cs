@@ -55,7 +55,6 @@ namespace proiectDaw.Controllers
                     }
                 }
             }
-
             var recipesDB =
                 _context.Recipes.Include(e => e.Ingredients)
                     .Where(rcp => rcp.Name.ToLower().Contains(query.ToLower()))

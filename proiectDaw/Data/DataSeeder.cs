@@ -30,6 +30,7 @@ namespace proiectDaw.Data
             };
             recipe.Ingredients = new List<Ingredient>();
             recipe.Reviews = new List<Review>();
+            recipe.Favorites = new List<Favorite>();
 
             for (int i = 0; i < ingredientsNames.Length; i++)
             {

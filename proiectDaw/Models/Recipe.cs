@@ -30,6 +30,8 @@ namespace proiectDaw.Models
         
         [Required] public List<Review> Reviews { get; set; }
 
+        [JsonIgnore]  public ICollection<Favorite> Favorites { get; set; }
         [JsonProperty(PropertyName = "url")] public string CoverPhotoUrl { get; set; }
+        
     }
 }

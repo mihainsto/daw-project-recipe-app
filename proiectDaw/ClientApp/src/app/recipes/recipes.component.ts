@@ -39,7 +39,6 @@ export class RecipesComponent {
       .subscribe(
         (result) => {
           this.recipes = result;
-          console.log(this.recipes[0]);
         },
         (error) => console.error(error)
       );
@@ -87,6 +86,7 @@ export class RecipesComponent {
       .subscribe(
         (result) => {
           this.favorites = result;
+          console.log(this.favorites.indexOf(18))
         },
         (error) => {}
       );
