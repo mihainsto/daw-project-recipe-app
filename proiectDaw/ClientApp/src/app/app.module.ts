@@ -16,6 +16,7 @@ import {RecipesComponent} from "./recipes/recipes.component";
 import {RecipeComponent} from "./recipe/recipe.component";
 import {CreateOrEditRecipe} from "./createOrEditRecipe/createOrEditRecipe.component";
 import {SlideshowModule} from "ng-simple-slideshow";
+import {UsersComponent} from "./users/users.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {SlideshowModule} from "ng-simple-slideshow";
     RecipesComponent,
     RecipeComponent,
     CreateOrEditRecipe,
+    UsersComponent
   ],
   imports: [
     SlideshowModule,
@@ -42,6 +44,7 @@ import {SlideshowModule} from "ng-simple-slideshow";
       { path: 'recipe/:id', component: RecipeComponent },
       { path: 'createOrEditRecipe/:id', component: CreateOrEditRecipe, canActivate: [AuthorizeGuard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [
