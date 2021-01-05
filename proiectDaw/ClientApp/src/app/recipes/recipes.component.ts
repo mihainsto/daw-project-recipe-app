@@ -20,6 +20,7 @@ export class RecipesComponent {
     spice: false,
     vegetable: false,
   };
+  public onlyFav: boolean;
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
 
@@ -47,6 +48,7 @@ export class RecipesComponent {
     this.httpClient = http;
     this.baseUrl = baseUrl;
     this.fetchData(http, baseUrl);
+    this.onlyFav = false;
   }
 
   updateSearchValue(value: string) {
@@ -57,6 +59,10 @@ export class RecipesComponent {
   changeFilterField(value) {
     this.filterOptions[value] = !this.filterOptions[value];
     this.fetchData(this.httpClient, this.baseUrl);
+  }
+
+  onlyFavClicked(b: boolean) {
+    this.onlyFav = b;
   }
 }
 

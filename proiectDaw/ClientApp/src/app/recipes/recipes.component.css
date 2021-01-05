@@ -17,3 +17,24 @@
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
+
+.cardTitleIcon{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.heartButton{
+  cursor: pointer;
+}
+
+.topSearch{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.heartButtonTopSearch{
+  padding-left: 20px;
+}
