@@ -1,5 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { AuthorizeService } from "../../api-authorization/authorize.service";
 
 @Component({
   selector: "app-counter-component",
@@ -22,6 +23,7 @@ export class RecipesComponent {
     vegetable: false,
   };
   public onlyFav: boolean;
+  public isAuthenticated: boolean;
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
 
@@ -86,20 +88,32 @@ export class RecipesComponent {
       .subscribe(
         (result) => {
           this.favorites = result;
-          console.log(this.favorites.indexOf(18))
+          console.log(this.favorites.indexOf(18));
         },
         (error) => {}
       );
   }
 
-  constructor(http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
+  constructor(
+    private authorizeService: AuthorizeService,
+    http: HttpClient,
+    @Inject("BASE_URL") baseUrl: string
+  ) {
     this.httpClient = http;
     this.baseUrl = baseUrl;
     this.fetchData(http, baseUrl);
-    this.getFavorites();
+
     this.onlyFav = false;
   }
 
+  ngOnInit() {
+    this.authorizeService.isAuthenticated().subscribe((value) => {
+      this.isAuthenticated = value;
+      if(value){
+        this.getFavorites();
+      }
+    });
+  }
   updateSearchValue(value: string) {
     this.searchValue = value;
     this.fetchData(this.httpClient, this.baseUrl);

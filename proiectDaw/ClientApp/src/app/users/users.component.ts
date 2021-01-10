@@ -8,11 +8,30 @@ import {FormArray, FormControl} from "@angular/forms";
 })
 export class UsersComponent {
   public statusMessage: 'SUCCESS' | 'ERROR'
+  public userRole
   private users: User[];
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
 
   usersRoles = new FormArray([]);
+
+  private getUserRole() {
+    this.httpClient
+      .post<{role: string}>(
+        this.baseUrl + "user/getRole",
+        { },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          this.userRole = result.role
+          console.log(result)
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }
   private fetchData() {
     this.httpClient
       .post<User[]>(
@@ -57,6 +76,7 @@ export class UsersComponent {
     this.httpClient = http;
     this.baseUrl = baseUrl;
     this.fetchData();
+    this.getUserRole();
   }
   updateButtonClicked(){
     this.users.forEach((user, index) => {

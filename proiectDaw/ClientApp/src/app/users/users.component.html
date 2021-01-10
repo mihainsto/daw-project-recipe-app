@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="userRole === 'ADMIN'">
   <div class="fs-1">
     Manage application users
   </div>
@@ -30,4 +30,7 @@
   <button type="button" class="btn btn-primary" (click)="updateButtonClicked()">Update</button>
 
 
+</div>
+<div *ngIf="userRole !== 'ADMIN'">
+ Only admins can change user roles
 </div>

@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="userRole ==='ADMIN'">
 
   <div *ngIf="action === 'UPDATE'">
     <p class="fs-1">Edit the Recipe</p>
@@ -132,3 +132,6 @@
   </div>
 </div>
 
+<div *ngIf="userRole !== 'ADMIN'">
+Only admins can create new recipes
+</div>

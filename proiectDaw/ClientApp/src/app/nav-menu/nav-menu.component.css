@@ -50,7 +50,7 @@ header{
     justify-content: space-between;
   }
   .buttonsGroup{
-    margin-left: 2vw;
+    margin-left: 4vw;
     display: flex !important;
     flex-direction: row !important;
     justify-content: space-between;
@@ -62,6 +62,9 @@ header{
     display: none;
   }
   .buttonsGroupWrapper{
+  }
+  .btn-lg{
+    padding: 5px;
   }
 }
 

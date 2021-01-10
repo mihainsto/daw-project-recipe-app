@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -92,8 +93,15 @@ namespace proiectDaw.Controllers
         [HttpPost("/recipe/update")]
         public Boolean Update()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.Where(usr => usr.Id == userId).First();
+            if (user.Role != "ADMIN")
+            {
+                Problem("Only admins can do this");
+            }
+            
             var keys = Request.Form.Keys;
-
+            
             foreach (var key in keys)
             {
                 var json = JObject.Parse(key);
@@ -165,6 +173,14 @@ namespace proiectDaw.Controllers
         [HttpPost("/recipe/create")]
         public Boolean Create()
         {
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.Where(usr => usr.Id == userId).First();
+            if (user.Role != "ADMIN")
+            {
+                Problem("Only admins can do this");
+            }
+            
             var keys = Request.Form.Keys;
 
             foreach (var key in keys)
@@ -218,6 +234,12 @@ namespace proiectDaw.Controllers
         [HttpPost("/recipe/delete")]
         public Boolean Delete()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.Where(usr => usr.Id == userId).First();
+            if (user.Role != "ADMIN")
+            {
+                Problem("Only admins can do this");
+            }
             var keys = Request.Form.Keys;
             var id = "";
 

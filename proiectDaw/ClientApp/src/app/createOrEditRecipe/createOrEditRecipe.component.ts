@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormArray, FormControl, NgForm, Validators } from "@angular/forms";
 import { Recipe } from "../recipes/recipes.component";
+import {AuthorizeService} from "../../api-authorization/authorize.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: "app-counter-component",
@@ -13,6 +15,7 @@ export class CreateOrEditRecipe implements OnInit {
   public recipe: Recipe;
   public error: boolean;
   public success: boolean;
+  public userRole: string;
 
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
@@ -30,6 +33,24 @@ export class CreateOrEditRecipe implements OnInit {
   ingredientsName = new FormArray([]);
   ingredientsTypes = new FormArray([]);
   steps = new FormArray([]);
+
+  private getUserRole(http: HttpClient, baseUrl: string) {
+    http
+      .post<{role: string}>(
+        baseUrl + "user/getRole",
+        { },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          this.userRole = result.role
+          console.log(result)
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }
 
   private fetchData(http: HttpClient, baseUrl: string) {
     http
@@ -173,6 +194,7 @@ export class CreateOrEditRecipe implements OnInit {
   }
 
   ngOnInit() {
+    this.getUserRole(this.httpClient, this.baseUrl);
     this.activatedRoute.params.subscribe((params) => {
       this.id = params["id"];
     });

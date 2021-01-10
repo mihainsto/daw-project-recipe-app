@@ -69,5 +69,15 @@ namespace proiectDaw.Controllers
             var users = _context.Users;
             return users.ToList();
         }
+        
+        [HttpPost("/user/getRole")]
+        public object GetRole()
+        {
+            var keys = Request.Form.Keys;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.Where(usr => usr.Id == userId).First();
+            var obj = new {role = user.Role};
+            return obj;
+        }
     }
 }
