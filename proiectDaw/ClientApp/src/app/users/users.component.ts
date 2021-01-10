@@ -1,15 +1,18 @@
 import { Component, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import {FormArray, FormControl} from "@angular/forms";
 
 @Component({
   templateUrl: "./users.component.html",
   styleUrls: ["./users.component.css"],
 })
 export class UsersComponent {
+  public statusMessage: 'SUCCESS' | 'ERROR'
   private users: User[];
   private readonly httpClient: HttpClient;
   private readonly baseUrl: string;
 
+  usersRoles = new FormArray([]);
   private fetchData() {
     this.httpClient
       .post<User[]>(
@@ -20,8 +23,33 @@ export class UsersComponent {
       .subscribe(
         (result) => {
           this.users = result;
+          result.map((usr) => {
+            if(usr.role === 'ADMIN'){
+              this.usersRoles.push(new FormControl('ADMIN'))
+            } else {
+              this.usersRoles.push(new FormControl('USER'))
+            }
+          })
         },
         (error) => console.error(error)
+      );
+  }
+
+  private changeRole(id: string, role:string) {
+    this.httpClient
+      .post<string>(
+        this.baseUrl + "user/changeRole",
+        { id: id, role: role },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .subscribe(
+        (result) => {
+          this.statusMessage = 'SUCCESS'
+        },
+        (error) => {
+          console.error(error);
+          this.statusMessage = 'ERROR'
+        }
       );
   }
 
@@ -29,6 +57,14 @@ export class UsersComponent {
     this.httpClient = http;
     this.baseUrl = baseUrl;
     this.fetchData();
+  }
+  updateButtonClicked(){
+    this.users.forEach((user, index) => {
+      if(this.usersRoles.value[index] !== user.role){
+        this.changeRole(user.id, this.usersRoles.value[index])
+      }
+    })
+    this.fetchData()
   }
 }
 

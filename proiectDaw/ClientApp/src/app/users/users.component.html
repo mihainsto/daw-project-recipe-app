@@ -3,8 +3,31 @@
     Manage application users
   </div>
 
-  <div *ngFor="let user of users">
-    <div>{{user.email}}</div>
-    <div></div>
-  </div>
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>User</th>
+      <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let user of users; let i = index">
+      <tr>
+        <td>{{user.email}}</td>
+        <td>
+          <select class="custom-select" [formControl]="usersRoles.controls[i]">
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <p class="text-success" *ngIf="statusMessage==='SUCCESS'">Operation completed</p>
+  <p class="text-danger"  *ngIf="statusMessage==='ERROR'">Error</p>
+  <button type="button" class="btn btn-primary" (click)="updateButtonClicked()">Update</button>
+
+
 </div>

@@ -12,5 +12,6 @@ namespace proiectDaw.Models
     {
         [JsonIgnore]  public ICollection<Favorite> Favorites { get; set; }
         
+        public string Role { get; set; }
     }
 }
