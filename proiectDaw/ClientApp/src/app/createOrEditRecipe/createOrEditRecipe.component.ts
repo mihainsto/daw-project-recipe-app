@@ -151,7 +151,7 @@ export class CreateOrEditRecipe implements OnInit {
         (result) => {
           this.error = false;
           this.success = true;
-          this.router.navigate(["recipe", this.id]);
+          this.router.navigate(["recipes"]);
         },
         (error) => {
           console.error(error);
